@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>{{{ title }}}</title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jstree/3.0.9/themes/default/style.min.css" />
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jstree/3.0.9/jstree.min.js"></script>	
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+
+</head>
+<body ng-app="fileTreeApp">
+
+
+
+	<h1>{{{ title }}}</h1>
+	<p>Welcome to <b>Alain Lavoie</b></p>
+	<button id="runupdate">run</button>
+	<button id="addnode">add node</button>
+	<button id="addfolder">add folder</button>
+	<div id="currentdir">Root > Dexto.ca </div>
+
+	<div class="page">
+		<div class="direct">
+
+			<div id="ouo" ng-controller="FileUniqueCtrl">Voici du texte {{ autreFct() }}</div>
+			<div id="direxplorer">
+			</div>
+		</div>
+		<div class="filelist">
+
+			<div class="list-group">
+				<table class="table table-hover table-condensed">
+					<thead>
+				        <tr>
+				          <th>Name</th>
+				          <th>Last Modified</th>
+				          <th>File Size</th>
+        				</tr>
+      				</thead>
+      				<tbody>
+      					<tr>
+      						<th class="fa fa-file-pdf-o">
+      							<a style="margin-left:10px;" href="#">Filename.pdf</a>
+      						</th>
+      						<td>Fev 3</td>
+      						<td>456 KB</td>
+      					</tr>
+      					<tr>
+      						<th class="fa fa-file-image-o">
+      							<a style="margin-left:10px;" href="#">Facture-2014.pdf</a>
+      						</th>
+      						<td>2013/12/01</td>
+      						<td>6432 MB</td>
+      					</tr>
+      					<tr>
+      						<th class="fa fa-file-audio-o">
+      							<a style="margin-left:10px;" href="#">Coldplay-Yes</a>
+      						</th>
+      						<td>2011/05/15</td>
+      						<td>1 453 MB</td>
+      					</tr>
+      				</tbody>      				
+  				</table>
+			</div>
+
+		</div>
+		<div class="viewer">Apps - Viewer</div>
+		<form class="renamer">
+			<select class="renameformat">
+				<option>Source-date-prix</option>
+				<option>Autre</option>
+			</select>
+			Example: <span>format</span>
+			<input type="checkbox" name="overextension" class="overwriteextension">Overwrite extension<br>
+			<select class="renameformat">
+				<option>Hydro-Solution</option>
+				<option>Desjardins</option>
+				<option>Z</option>
+				<option>Autre</option>
+			</select>
+
+			<select>
+				<option>Date</option>
+			</select>
+
+			<input >$2332
+			<input type="submit" value="Run">
+		</form>
+	</div>
+
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular-route.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular-resource.js"></script>
+	<script>
+
+	var fileTreeApp = angular.module('fileTreeApp', ['ngRoute']);
+	fileTreeApp.controller("FileUniqueCtrl", function($scope){
+		$scope.dexto = {};
+		console.log("gogo");
+		$scope.autreFct = function(){
+			return "changer";
+		}
+
+	});
+
+	$("#runupdate").click(function(){
+		var new_data = [{ 
+			"text" : "Users", 
+			"children" : [
+			{ "text" : "bonbon",
+			"children" : [
+			{ "text" : "Pictures.js" }
+			] 
+		},
+		{ "text" : "Other" }
+		]}] ;
+		$('#direxplorer').jstree(true).settings.core.data = new_data;
+		$('#direxplorer').jstree(true).refresh();
+		// Redraw ne fonctionne pas pour moi.
+		//$('#direxplorer').jstree(true).redraw(true);
+
+	});
+
+	$(function() {
+
+		var filetreeConfig = {
+
+			"core" :{
+				"data": [],
+				"check_callback" : true				
+			},
+
+			"plugins" : [ "themes", "unique", "dnd", "types", "contextmenu", "sort", "state", "search" ],
+			"themes" : {
+				"theme" : "classic",
+				"dots" : true,
+				"icons" : true
+			},
+			"state": { "key":"state_demo" },
+			"types":{
+				"#" : {
+					"valid_children": ["folder"],
+				},
+				"folder": {
+					"valid_children": ["default", "folder"],
+					"check_node": false,
+					"uncheck_node": false
+				},
+				"default": {
+					"valid_children": []
+				},
+				"file": {
+					"icon":"glyphicon glyphicon-leaf"
+				}
+			}
+		};
+
+
+
+		var treeConfig = {
+			"core" :{
+				"data": [{ 
+					"text" : "Users", 
+					"type": "folder",
+					"children" : [
+					{ "text" : "alainlavoie",
+					"type": "folder",
+					"children" : [
+					{ "text" : "Pictures.js",
+					"icon": "http://jstree.com/tree.png" }
+					] 
+				},
+				{ "text" : "Other" }
+				] 
+			}],
+			"check_callback" : true				
+		},
+
+		"plugins" : [ "themes", "unique", "dnd", "types", "contextmenu", "sort", "state", "search" ],
+		"themes" : {
+			"theme" : "classic",
+			"dots" : true,
+			"icons" : true
+		},
+		"state": { "key":"state_demo" },
+		"types":{
+			"#" : {
+				"valid_children": ["folder"],
+			},
+			"folder": {
+				"valid_children": ["default", "folder"],
+				"check_node": false,
+				"uncheck_node": false
+			},
+			"default": {
+				"valid_children": []
+			},
+			"file": {
+				"icon":"glyphicon glyphicon-leaf"
+			}
+		}
+
+
+	};
+
+	$('#direxplorer').jstree(treeConfig); 
+	$('#direxplorer').on("changed.jstree", function (e, data) {
+			//console.log(data.instance.get_selected(true)[0].text);
+			var thistree = $('#direxplorer').jstree();            // Tree
+
+			var node = data.instance.get_node(data.selected[0]);   // Node object ou False
+			var nodeText = data.instance.get_node(data.selected[0]).text;
+			var i, j, r = [];
+			var unObj = {};
+			var thisnode = thistree.get_node(node);      
+			var unAutre = thistree.get_parent(node);
+			var path = thistree.get_path(node);
+			if ( path ){
+				var spath = ' > '  + path.join(' > ');
+				console.log("path: " + spath);
+				$('#currentdir').html(spath);
+			} 
+
+			for(i = 0, j = data.selected.length; i < j; i++) {
+				r.push(data.instance.get_node(data.selected[i]).text);
+				console.log(r);
+			}
+
+			var selectedType = thistree.get_type(node);
+			switch( selectedType ){
+				case "folder":
+				console.log("Folder choosen");
+				break;
+				default:
+				console.log("Unknown type");
+				break;
+			}
+
+
+			console.log(nodeText);
+		});
+
+
+	$('#addfolder').on('click', function () {
+		var filetree = $('#direxplorer').jstree(true);
+		var selected = filetree.get_selected();
+		var selectedNode = filetree.get_node(selected);
+		var parent;
+
+		var isParent = filetree.is_parent(selectedNode);
+		var icon = filetree.get_icon(selectedNode);
+		var iconn = filetree.get_icon(selected);
+		var typer = filetree.get_type(selectedNode, true);
+		var typen = filetree.get_type(selectedNode, false);
+		var leaf = filetree.is_leaf(selected);
+		if ( isParent ){
+			parent = selectedNode;
+		} else {
+			parentId = filetree.get_parent(selected);
+			parent = filetree.get_node(parentId);
+		}
+		var newelem = { 
+			"text" : "foldd", 
+			"type" : "folder",
+			"children": [] 
+		};
+		var newnode = filetree.create_node(parent, newelem, "first", function(){console.log("creation done");}, true);
+
+
+	});
+
+
+	$('#addnode').on('click', function () {
+		var filetree = $('#direxplorer').jstree(true);
+		var selected = filetree.get_selected();
+		var selectedNode = filetree.get_node(selected);
+		var parent;
+
+		var isParent = filetree.is_parent(selectedNode);
+		var icon = filetree.get_icon(selectedNode);
+		var leaf = filetree.is_leaf(selected);
+		if ( isParent ){
+			parent = selectedNode;
+		} else {
+			parentId = filetree.get_parent(selected);
+			parent = filetree.get_node(parentId);
+		}
+		var newnode = filetree.create_node(parent, { "text" : "tratata", "icon": "http://jstree.com/tree.png"  }, "first", function(){console.log("creation done");}, true);
+
+	});	
+
+
+
+	$('direxplorer').on('click', function () {
+		$('#jstree').jstree('select_node', 'child_node_1');
+
+	});
+
+	fileTreeApp.config(function($routeProvider){
+		$routeProvider.
+		when("/", {
+			template:"{{files}}",
+			controller:"FileListCtrl"
+		}).
+		when('/:filename',{
+			templateUrl:"{{files}}",
+			controller:'FileListCtrl'
+		}).
+		otherwise({
+			redirectTo:'/'
+		});
+	});
+
+	fileTreeApp.factory('files', function($http){
+		return{
+			list:function(callback){
+				$http.get('files.json').success(callback);
+			}
+		}
+	});
+
+	fileTreeApp.controller("FileListCtrl", function($scope, $http, files){
+		console.log("FileListCtrl ok")
+		files.list(function(files){
+			$scope.files = files;
+		});
+	});
+
+
+
+
+
+});
+</script>	
+</body>
+
+</html>

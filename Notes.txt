@@ -1,4 +1,26 @@
 Make sure these packages are installed
 
 Express.js
-Otherwise: sudo npm install express -g
+Otherwise> sudo npm install express -g
+         > sudo npm install -g express-generator
+         > express bigd --hogan -c less
+         > cd bigd
+         > DEBUG=bigd nodemon ./bin/www
+         >
+
+nodemon: 
+         > npm install nodemon -g
+
+Bootstrap: 
+
+MongoDB:
+
+Angular.js:
+
+Passport.js: 
+Otherwise> sudo npm install passport -g
+
+Browser:
+		> localhost:3000
+		
+

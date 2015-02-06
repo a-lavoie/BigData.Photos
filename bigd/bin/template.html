@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jstree/3.0.9/themes/default/style.min.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.0.9/jstree.min.js"></script>	
+
+	<style>
+
+	.breadcrumb > li + li:before {
+		color: #ccc;
+		content: "/ ";
+		padding: 0 5px;
+	}
+
+	.navbar-nomargin {
+		margin-bottom: 0px;
+	}
+
+	div.pathbutton >  button.breadcrumb-alike::before {
+		color: #ccc;
+		content: "/";
+		padding: 0 0px;
+	}
+
+	p.beforebutton:before {
+		display:inline !important;
+		color: #9A9B96 !important;
+		content: "> " !important;
+		padding: 0 0px !important;
+		font-size: 19px;
+		font-weight: bold;		
+	}
+
+
+
+	</style>
+
+</head>
+
+<body class="">
+
+	<nav class="navbar navbar-default navbar-nomargin">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">BigNet</a>
+			</div>
+
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Data<span class="sr-only">(current)</span></a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Apps <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li class="divider"></li>
+							<li><a href="#">Separated link</a></li>
+							<li class="divider"></li>
+							<li><a href="#">One more separated link</a></li>
+						</ul>
+					</li>
+				</ul>
+				<form class="navbar-form navbar-left" role="search">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Search">
+					</div>
+					<button type="submit" class="btn btn-default">Search</button>
+				</form>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+							<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+							Connexion <span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li class="divider"></li>
+							<li><a href="#">Separated link</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div><!-- /.navbar-collapse -->
+		</div><!-- /.container-fluid -->
+	</nav>
+
+
+
+
+
+
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-2" style="background:lightblue; height:500px;">
+			</div>
+			<div class="col-md-6"  style="background:lightgray; height:500px;">
+
+
+				<div class="pathbutton">  
+
+					<button type="button" class="btn btn-default"  aria-expanded="false">
+						MachineName
+					</button>
+					<p style="display:inline !important;color: #9A9B96 !important;content: '> ' !important;padding: 0 0px !important;" class="beforebutton"></p>
+					<button type="button" class="btn btn-default"  aria-expanded="false">
+						asdf
+					</button>
+					<p style="display:inline !important;color: #9A9B96 !important;content: '> ' !important;padding: 0 0px !important;" class="beforebutton"></p>
+					<button type="button" class="btn btn-default"  aria-expanded="false">
+						asdf asd 
+					</button>
+					<p style="display:inline !important;color: #9A9B96 !important;content: '> ' !important;padding: 0 0px !important;" class="beforebutton"></p>
+
+					<div class="btn-group">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+							Action <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#">Action On directory</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li class="divider"></li>
+							<li><a href="#">Separated link</a></li>
+						</ul>
+					</div>
+
+
+
+
+				</div>
+
+
+
+				<div class="list-group">
+					<table id="myFileListing" class="table table-hover table-condensed" data-click-to-select="true">
+						<thead>
+							<tr>
+								<th class="bs-checkbox " style="width: 36px; "><div class="th-inner "><input name="btSelectAll" type="checkbox"></div><div class="fht-cell"></div></th>
+								<th>Name</th>
+								<th>Last Modified</th>
+								<th>File Size</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="bs-checkbox"><input data-index="3" name="btSelectItem" type="checkbox"></td>
+								<td class="fa fa-file-pdf-o">
+									<span style="margin-left:10px;" href="#">Filename.pdf</span>
+								</td>
+								<td>Fev 3</td>
+								<td>456 KB</td>
+							</tr>
+							<tr>
+								<td class="bs-checkbox"><input data-index="3" name="btSelectItem" type="checkbox"></td>
+								<td class="fa fa-file-image-o">
+									<span style="margin-left:10px;" href="#">Facture-2014.pdf</span>
+								</td>
+								<td>2013/12/01</td>
+								<td>6432 MB</td>
+							</tr>
+							<tr>
+								<td class="bs-checkbox"><input data-index="3" name="btSelectItem" type="checkbox"></td>
+								<td class="fa fa-file-audio-o">
+									<span style="margin-left:10px;" href="#">Coldplay-Yes</span>
+								</td>
+								<td>2011/05/15</td>
+								<td>1 453 MB</td>
+							</tr>
+						</tbody>      				
+					</table>
+				</div>
+
+			</div>			
+			<div class="col-md-4"  style="background:lightgreen; height:500px;">asdf</div>
+		</div>
+	</div>
+
+
+
+
+	<ul id="contextMenu" class="dropdown-menu" role="menu" style="display:none" >
+    <li><a tabindex="-1" href="#">Action</a></li>
+    <li><a tabindex="-1" href="#">Another action</a></li>
+    <li><a tabindex="-1" href="#">Something else here</a></li>
+    <li class="divider"></li>
+    <li><a tabindex="-1" href="#">Separated link</a></li>
+</ul>
+
+
+	
+</body>
+
+
+
+<script>
+	(function ($, window) {
+
+    $.fn.contextMenu = function (settings) {
+
+        return this.each(function () {
+
+            // Open context menu
+            $(this).on("contextmenu", function (e) {
+                //open menu
+                $(settings.menuSelector)
+                    .data("invokedOn", $(e.target))
+                    .show()
+                    .css({
+                        position: "absolute",
+                        left: getLeftLocation(e),
+                        top: getTopLocation(e)
+                    })
+                    .off('click')
+                    .on('click', function (e) {
+                        $(this).hide();
+                
+                        var $invokedOn = $(this).data("invokedOn");
+                        var $selectedMenu = $(e.target);
+                        
+                        settings.menuSelected.call(this, $invokedOn, $selectedMenu);
+                });
+                
+                return false;
+            });
+
+            //make sure menu closes on any click
+            $(document).click(function () {
+                $(settings.menuSelector).hide();
+            });
+        });
+
+        function getLeftLocation(e) {
+            var mouseWidth = e.pageX;
+            var pageWidth = $(window).width();
+            var menuWidth = $(settings.menuSelector).width();
+            
+            // opening menu would pass the side of the page
+            if (mouseWidth + menuWidth > pageWidth &&
+                menuWidth < mouseWidth) {
+                return mouseWidth - menuWidth;
+            } 
+            return mouseWidth;
+        }        
+        
+        function getTopLocation(e) {
+            var mouseHeight = e.pageY;
+            var pageHeight = $(window).height();
+            var menuHeight = $(settings.menuSelector).height();
+
+            // opening menu would pass the bottom of the page
+            if (mouseHeight + menuHeight > pageHeight &&
+                menuHeight < mouseHeight) {
+                return mouseHeight - menuHeight;
+            } 
+            return mouseHeight;
+        }
+
+    };
+})(jQuery, window);
+
+// Voir http://stackoverflow.com/questions/18666601/use-bootstrap-3-dropdown-menu-as-context-menu
+
+$("#myFileListing td").contextMenu({
+    menuSelector: "#contextMenu",
+    menuSelected: function (invokedOn, selectedMenu) {
+        var msg = "You selected the menu item '" + selectedMenu.text() +
+            "' on the value '" + invokedOn.text() + "'";
+        alert(msg);
+    }
+});
+
+
+
+
+
+</script>
+
+</html>
