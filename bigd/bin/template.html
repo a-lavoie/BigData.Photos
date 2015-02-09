@@ -108,21 +108,7 @@
 	</nav>
 
 
-<ul class="nbreadcrumb">
-	<li><a href="#">Home</a></li>
-	<li><a href="#">Vehicles</a></li>
-	<li><a href="#">Vans</a></li>
-	<li><a href="#">Camper Vans</a></li>
-	<li><a href="#">1989 VW Westfalia Vanagon</a></li>
-</ul>
 
-<ul id="crumbs">
-		<li><a href="#">Home</a></li>
-		<li><a href="#">Main section</a></li>
-		<li><a href="#">Sub section</a></li>
-		<li><a href="#">Sub sub section</a></li>
-		<li>The page you are on right now</li>
-	</ul>
 
 
 	<div class="container-fluid">
@@ -131,36 +117,28 @@
 			</div>
 			<div class="col-md-6"  style="background:lightgray; height:500px;">
 
-
-				<div class="pathbutton">  
-
-					<button type="button" class="btn btn-default"  aria-expanded="false">
-						MachineName
-					</button>
-					<p style="display:inline !important;color: #9A9B96 !important;content: '> ' !important;padding: 0 0px !important;" class="beforebutton"></p>
-					<button type="button" class="btn btn-default"  aria-expanded="false">
-						asdf
-					</button>
-					<p style="display:inline !important;color: #9A9B96 !important;content: '> ' !important;padding: 0 0px !important;" class="beforebutton"></p>
-					<button type="button" class="btn btn-default"  aria-expanded="false">
-						asdf asd 
-					</button>
-					<p style="display:inline !important;color: #9A9B96 !important;content: '> ' !important;padding: 0 0px !important;" class="beforebutton"></p>
-
-					<div class="btn-group">
-						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-							Action <span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="#">Action On directory</a></li>
-							<li><a href="#">Another action</a></li>
-							<li><a href="#">Something else here</a></li>
-							<li class="divider"></li>
-							<li><a href="#">Separated link</a></li>
-						</ul>
-					</div>
+				<div id="smallcrumbs">
+					<ul class="nav nav-pills" id="crumbs">
+						<li><a href="#">MachineName</a></li>
+						<li><a href="#">Users</a></li>
+						<li><a href="#">alainlavoie</a></li>
+						<li>
+							<a href="#">BigData.Photos</a>
+						</li>
+						<li role="presentation" class="dropdown">
+							<a href="#" data-toggle="dropdown" class="dropdown-toggle" role="button" aria-expanded="false">
+								bigd<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu dropdown-overwrite" role="menu">
+								<li><a href="#">Action On directory</a></li>
+								<li><a href="#">Another action</a></li>
+								<li class="previous-divider"><a href="#">Something else here</a></li>
+								<li class="divider"></li>
+								<li><a href="#">Separated link</a></li>
+							</ul>
+						</li>
+					</ul>
 				</div>
-
 
 				<table id="tablefile" class="" data-click-to-select="true">
 					<thead>
