@@ -13,30 +13,30 @@ http://www.duoh.com/csstutorials/breadcrumb/
 		padding:0;
 		margin:0;
 	}		
-	#crumbs {
+	#smallcrumbs {
 		height:2.4em;
 		border:1px solid #dedede;
 	}
-	#crumbs li {
+	#smallcrumbs li {
 		float:left;
 		line-height:2.3em;
 		color:#777;
 		padding-left:.75em;
 	}		
-	#crumbs li a {
+	#smallcrumbs li a {
 		background:url(../images/crumbs.gif) no-repeat right center;
 		display:block;
 		padding:0 15px 0 0;
 	}							
-	#crumbs li a:link,
-	#crumbs li a:visited {
+	#smallcrumbs li a:link,
+	#smallcrumbs li a:visited {
 		color:#777;
 		text-decoration:none;
 	}	
-	a:link, a:visited,	
-	#crumbs li a:hover,
-	#crumbs li a:focus {
-		color:#dd2c0d;
+	/* a:link, a:visited, 	#smallcrumbs li a:focus 	 */
+	#smallcrumbs li a:hover
+	{
+		color:blue;
 	}	
 
 	#smallcrumbs {

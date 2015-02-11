@@ -246,6 +246,7 @@
 			console.log(nodeText);
 		});
 
+	$
 
 	$('#addfolder').on('click', function () {
 		var filetree = $('#direxplorer').jstree(true);
