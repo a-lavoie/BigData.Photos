@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-
+var fs = require('fs');
 
 var app = express();
 
@@ -48,36 +48,9 @@ if (app.get('env') === 'development') {
             error: err
         });
     });
-
-//To have launchd start mongodb at login:
-//    ln -sfv /usr/local/opt/mongodb/*.plist ~/Library/LaunchAgents
-//Then to load mongodb now:
-//    launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
-//Or, if you don't want/need launchctl, you can just run:
-//    mongod --config /usr/local/etc/mongod.conf
-//    >mongod --dbpath
-
-    mongoose.connect("mongodb://localhost/files");
 }
 
-// See files.js
 
-
-
-mongoose.model('files', {
-    path: String,
-    filename: String,
-    size: Number,
-    owner: String,
-    created: Date,
-    modified: Date
-});
-
-app.get("/files", function(req,res){
-   mongoose.model('files').find(function(err,files){
-      res.send(files);
-   });
-});
 
 
 // production error handler
