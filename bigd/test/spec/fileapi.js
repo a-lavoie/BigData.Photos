@@ -1,10 +1,10 @@
 /* global describe, it */
 
 var http = require( "http" ),
-    assert = require( "chai" ).assert;
+assert = require( "chai" ).assert;
 
 (function () {
-	'use strict';
+	'use strict'; 
 
 	describe('Give it some context', function () {
 		describe('maybe a bit more context here', function () {
@@ -12,13 +12,18 @@ var http = require( "http" ),
 				var options = {
 					host: 'localhost',
 					port: 3000,
-					path: '/ls//Users/alainlavoie', 
+					path: '/ls/Machine/Users/alainlavoie',  
 					method: 'GET'
 				};
 				var req = http.request( options, function( res ) {
 					assert.equal( res.statusCode, "200", "statusCode error" );
-					console.log(res);
-					done();
+					res.setEncoding( 'utf8' ); 
+					res.on( 'data', function( json_data ) {
+					   var json = JSON.parse( json_data );
+					   assert.equal(  "a", "a", "" );
+					   console.log(json_data);
+					   done();
+					});
 				} );
 				req.end();
  
@@ -27,3 +32,10 @@ var http = require( "http" ),
 		});
 	});
 })();
+
+
+
+
+
+
+

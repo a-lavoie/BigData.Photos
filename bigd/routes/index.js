@@ -44,13 +44,16 @@ router.get("/files", function(req,res){
 });
 
 
-router.get("/ls/:dir(*)", function(req,res){
+router.get("/ls/:node/:dir(*)", function(req,res){
 	console.log("Entering in REST api");
 	var out = {};
-	out.directoryListing = [];
+	console.log("Dir=" + req.params.dir);
+	console.log("Node=" + req.params.node);
+	out.network = req.params.node; 
+	out.directoryListing = []; 
 	try {
-		fs.readdirSync(req.params.dir).forEach(function(filename){
-			out.list.push(filename);
+		fs.readdirSync("/" + req.params.dir).forEach(function(filename){
+			out.directoryListing.push(filename);
 		});
 		res.send(out);
 	} catch (dirError){
@@ -62,6 +65,40 @@ router.get("/ls/:dir(*)", function(req,res){
 	}
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
