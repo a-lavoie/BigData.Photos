@@ -49,13 +49,20 @@ router.get("/ls/:node/:dir(*)", function(req,res){
 	var out = {};
 	console.log("Dir=" + req.params.dir);
 	console.log("Node=" + req.params.node);
-	out.network = req.params.node; 
+	//out.network = req.params.node; 
 	out.directoryListing = []; 
 	try {
+		var counter=0;
 		fs.readdirSync("/" + req.params.dir).forEach(function(filename){
-			out.directoryListing.push(filename);
+			out.directoryListing.push({
+				"index": counter++,
+				"filename": filename, 
+				"Owner": "alainlavoie",
+				"lastModification": 4332,
+				"fileSize": 142
+			});
 		});
-		res.send(out);
+		res.send(out.directoryListing);
 	} catch (dirError){
 		if (dirError instanceof Error && dirError.code === 'ENOENT'){
 			res.send(404);
