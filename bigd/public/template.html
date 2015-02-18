@@ -163,17 +163,17 @@
 
 
 
-				<table id="tablefile" class="" data-click-to-select="true">
+				<table id="tablefile" data-url="" class="" data-click-to-select="true">
 					<thead>
 						<tr>
 							<th data-field="state" data-checkbox="true"></th>
-							<th data-field="description">Name</th>
-							<th data-field="name">Owner</th>
-							<th data-field="stargazers_count">Last Modified</th>
-							<th data-field="forks_count">File size</th>
+							<th data-field="filename">Name</th>
+							<th data-field="owner">Owner</th>
+							<th data-field="lastModified">Last Modified</th>
+							<th data-field="fileSize">File size</th>
 						</tr>
 					</thead>
-					<tbody id="fileListing" ng-controller="MainCtrl" >
+					<tbody id="fileListing" ng-controller="MainCtrl">
 
 
 
@@ -294,50 +294,7 @@ $("#tablefile tr").contextMenu({
 	}
 });
 
-$(function () {
-	$('#tablefile').bootstrapTable({
-		data: [{}]
-	});
-});
 
-
-
-
-
-
-
-var data = [
-{
-	"name": "bootstrap-table",
-	"stargazers_count": "526",
-	"forks_count": "122",
-	"description": "An extend v3) "
-},
-{
-	"name": "multiple-select",
-	"stargazers_count": "288",
-	"forks_count": "150",
-	"description": "A jQuery plugin to sxes :)"
-},
-{
-	"name": "bootstrap-show-password",
-	"stargazers_count": "32",
-	"forks_count": "11",
-	"description": "Show/hide pas bootstrap."
-},
-{
-	"name": "blog",
-	"stargazers_count": "13",
-	"forks_count": "4",
-	"description": "my blog"
-},
-{
-	"name": "scutech-redmine",
-	"stargazers_count": "6",
-	"forks_count": "3",
-	"description": "Redmine extension."
-}
-];
 
 //$(function () {
 //	$('#tablefile').bootstrapTable({
@@ -347,9 +304,38 @@ var data = [
 
 var myapp = new angular.module("myapp", ["ngResource"]);
 myapp.controller("MainCtrl", ["$scope", "$resource", function($scope, $resource){
+	var popTable = new Promise(function(resolve, reject){
+
+
+		$(function () {
+
+			//var target = $('#tablefile');
+			//target.on('load-success.bs.table', function (e, data) {
+            //    console.log("event=" + e + "data=" + data);
+            //});
+			//target.bootstrapTable( { data: [{}] });
+
+		});
+
+
+
+	});
 	var FFiles = $resource("http://localhost:3000/ls/Machine/Users/alainlavoie", {id: "@id"}, {});
-	$scope.files = FFiles.query();
-	console.log($scope.file);
+	$scope.files = FFiles.query(function(){
+		var ndata = [];
+		angular.forEach( $scope.files, function(value, key){
+			console.log( "val=" + value + "key" + key);
+			var idata = {};
+			idata.filename = value.filename;
+            idata.owner = value.Owner;
+            idata.fileSize = value.fileSize;
+            idata.lastModified = value.lastModification; 
+			ndata.push(idata);
+		});
+		var target = $('#tablefile');
+		target.bootstrapTable( { "data": ndata });
+	});
+
 }]);
 
 
