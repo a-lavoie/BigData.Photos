@@ -295,28 +295,19 @@ $("#tablefile tr").contextMenu({
 });
 
 
+var pathTest = true;
+if (pathTest){
 
-//$(function () {
-//	$('#tablefile').bootstrapTable({
-//		data: data
-//	});
-//});
+	$(function () {
+		$('#tablefile').bootstrapTable({});
+	});
+
+
+}
 
 var myapp = new angular.module("myapp", ["ngResource"]);
 myapp.controller("MainCtrl", ["$scope", "$resource", function($scope, $resource){
 	var popTable = new Promise(function(resolve, reject){
-
-
-		$(function () {
-
-			//var target = $('#tablefile');
-			//target.on('load-success.bs.table', function (e, data) {
-            //    console.log("event=" + e + "data=" + data);
-            //});
-			//target.bootstrapTable( { data: [{}] });
-
-		});
-
 
 
 	});
@@ -327,14 +318,16 @@ myapp.controller("MainCtrl", ["$scope", "$resource", function($scope, $resource)
 			console.log( "val=" + value + "key" + key);
 			var idata = {};
 			idata.filename = value.filename;
-            idata.owner = value.Owner;
-            idata.fileSize = value.fileSize;
-            idata.lastModified = value.lastModification; 
+			idata.owner = value.Owner;
+			idata.fileSize = value.fileSize;
+			idata.lastModified = value.lastModification; 
 			ndata.push(idata);
 		});
 		var target = $('#tablefile');
-		target.bootstrapTable( { "data": ndata });
-	});
+
+        target.bootstrapTable('load', ndata);
+
+});
 
 }]);
 
