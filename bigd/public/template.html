@@ -148,7 +148,32 @@
 				</div>
 			</div>
 			<div class="col-md-4"  style="background:lightgray; height:50px;">
-				<a class="btn btn-primary" href="#"><span class="glyphicon glyphicon-pencil"></span></a>
+
+				<div class="row">
+					<a class="btn btn-primary" href="#"><span class="glyphicon glyphicon-pencil"></span></a>
+
+
+					<a ng-controller="HideSomeFilesCtrl"  ng-click="toggleHidingFiles()"  class="btn" ng-class="classFlag" href="#">
+						<span class="glyphicon glyphicon-eye-close"></span>
+					</a>
+
+					<div class="btn-group" role="group" aria-label="...">
+						<button type="button" class="btn btn-default">1</button>
+						<button type="button" class="btn btn-default">2</button>
+
+						<div class="btn-group" role="group">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+								Dropdown
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#">Dropdown link</a></li>
+								<li><a href="#">Dropdown link</a></li>
+							</ul>
+						</div>
+					</div>				
+				</div>
+
 			</div>
 		</div>
 	</div>
@@ -157,9 +182,9 @@
 
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-2" style="background:lightblue; height:500px;">
+			<div class="col-sm-2" style="background:lightblue; height:500px;">
 			</div>
-			<div class="col-md-6"  style="background:lightgray; height:500px;">
+			<div class="col-sm-6">
 
 
 
@@ -167,6 +192,7 @@
 					<thead>
 						<tr>
 							<th data-field="state" data-checkbox="true"></th>
+							<th data-field="type"></th>
 							<th data-field="filename">Name</th>
 							<th data-field="owner">Owner</th>
 							<th data-field="lastModified">Last Modified</th>
@@ -194,7 +220,7 @@
 
 				</table>
 			</div>			
-			<div class="col-md-4"  style="background:lightgreen; height:500px;">asdf</div>
+			<div class="col-sm-4"  style="background:lightgreen; height:500px;">asdf</div>
 		</div>
 	</div>
 
@@ -315,7 +341,6 @@ myapp.controller("MainCtrl", ["$scope", "$resource", function($scope, $resource)
 	$scope.files = FFiles.query(function(){
 		var ndata = [];
 		angular.forEach( $scope.files, function(value, key){
-			console.log( "val=" + value + "key" + key);
 			var idata = {};
 			idata.filename = value.filename;
 			idata.owner = value.Owner;
@@ -325,11 +350,30 @@ myapp.controller("MainCtrl", ["$scope", "$resource", function($scope, $resource)
 		});
 		var target = $('#tablefile');
 
-        target.bootstrapTable('load', ndata);
+		target.bootstrapTable('load', ndata);
 
-});
+	});
 
 }]);
+
+
+myapp.controller("HideSomeFilesCtrl", ["$scope", "$resource", function($scope, $resource){
+
+    $scope.hiddingFileFlag = false;
+    $scope.classFlag = "btn-default";
+	$scope.toggleHidingFiles = function() {
+       if ( $scope.hiddingFileFlag ){
+           $scope.hiddingFileFlag = false;
+           $scope.classFlag = "btn-default";
+       } else {
+           $scope.hiddingFileFlag = true;
+           $scope.classFlag = "btn-primary";
+       }
+	}
+
+}]);
+
+
 
 
 
