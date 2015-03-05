@@ -13,9 +13,6 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.5.0/bootstrap-table.min.css">
-	<script src="http://localhost:3000/bootstrap-table/src/bootstrap-table.js"></script>
-
 	<link rel="stylesheet" href="http://localhost:3000/stylesheets/breadcrumb.css">
 	<link rel="stylesheet" href="http://localhost:3000/stylesheets/crumb.css">
 	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jstree/3.0.9/themes/default/style.min.css" />
@@ -150,9 +147,6 @@
 			<div class="col-md-4"  style="background:lightgray; height:50px;">
 
 				<div class="row">
-					<a class="btn btn-primary" href="#"><span class="glyphicon glyphicon-pencil"></span></a>
-
-
 					<a ng-controller="HideSomeFilesCtrl"  ng-click="toggleHidingFiles()"  class="btn" ng-class="classFlag" href="#">
 						<span class="glyphicon glyphicon-eye-close"></span>
 					</a>
@@ -162,13 +156,14 @@
 						<button type="button" class="btn btn-default">2</button>
 
 						<div class="btn-group" role="group">
-							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-								Dropdown
+							<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+								<span class="glyphicon glyphicon-plus"></span>
 								<span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="#">Dropdown link</a></li>
-								<li><a href="#">Dropdown link</a></li>
+								<li><a href="#" ng-click="addFolder()" >Folder</a></li>
+								<li><a href="#" ng-click="addFile()">File</a></li>
+								<li><a href="#" ng-click="addFile()">Task</a></li>
 							</ul>
 						</div>
 					</div>				
@@ -188,22 +183,20 @@
 
 
 
-				<table id="tablefile" data-url="" class="" data-click-to-select="true">
+				<table id="tablefile" data-url="" class="table table-condensed" data-click-to-select="true">
 					<thead>
 						<tr>
 							<th data-field="state" data-checkbox="true"></th>
-							<th data-field="type"></th>
 							<th data-field="filename">Name</th>
 							<th data-field="owner">Owner</th>
 							<th data-field="lastModified">Last Modified</th>
 							<th data-field="fileSize">File size</th>
+							<th data-field="type"></th>
 						</tr>
 					</thead>
 					<tbody id="fileListing" ng-controller="MainCtrl">
 
-
-
-						<!--tr ng-repeat="file in files" data-index="0">
+						<tr ng-repeat="file in files" data-index="0">
 							<td class="bs-checkbox">
 								<input data-index="0" name="btSelectItem" type="checkbox">
 							</td>
@@ -211,10 +204,8 @@
 							<td style="">{{file.Owner}}</td>
 							<td style="">{{file.lastModification}}</td>
 							<td style="">{{file.fileSize}}</td>
-						</tr -->
+						</tr>
 
-
-						
 					</tbody>
 
 
@@ -321,16 +312,6 @@ $("#tablefile tr").contextMenu({
 });
 
 
-var pathTest = true;
-if (pathTest){
-
-	$(function () {
-		$('#tablefile').bootstrapTable({});
-	});
-
-
-}
-
 var myapp = new angular.module("myapp", ["ngResource"]);
 myapp.controller("MainCtrl", ["$scope", "$resource", function($scope, $resource){
 	var popTable = new Promise(function(resolve, reject){
@@ -348,9 +329,6 @@ myapp.controller("MainCtrl", ["$scope", "$resource", function($scope, $resource)
 			idata.lastModified = value.lastModification; 
 			ndata.push(idata);
 		});
-		var target = $('#tablefile');
-
-		target.bootstrapTable('load', ndata);
 
 	});
 
@@ -372,6 +350,73 @@ myapp.controller("HideSomeFilesCtrl", ["$scope", "$resource", function($scope, $
 	}
 
 }]);
+
+
+myapp.controller("CompanyCtrl", function($scope) {
+	$scope.companies = [
+	{ 
+		'name':'Infosys Technologies',
+		'employees': 125000,
+		'headoffice': 'Bangalore'
+	},
+	{ 
+		'name':'Cognizant Technologies',
+		'employees': 100000,
+		'headoffice': 'Bangalore'
+	},
+	{ 
+		'name':'Wipro',
+		'employees': 115000,
+		'headoffice': 'Bangalore'
+	},
+	{ 
+		'name':'Tata Consultancy Services (TCS)',
+		'employees': 150000,
+		'headoffice': 'Bangalore'
+	},
+	{ 
+		'name':'HCL Technologies',
+		'employees': 90000,
+		'headoffice': 'Noida'
+	},
+	];
+
+	$scope.addFolder = function(){		
+		$scope.companies.push({ 'name':"un Essai", 'employees': "yo", 'headoffice':"sdf" });
+	};
+
+	$scope.addFile = function(){		
+		$scope.companies.push({ 'name':$scope.name, 'employees': $scope.employees, 'headoffice':$scope.headoffice });
+		$scope.name='';
+		$scope.employees='';
+		$scope.headoffice='';
+	};
+
+	$scope.addRow = function(){		
+		$scope.companies.push({ 'name':$scope.name, 'employees': $scope.employees, 'headoffice':$scope.headoffice });
+		$scope.name='';
+		$scope.employees='';
+		$scope.headoffice='';
+	};
+
+	$scope.removeRow = function(name){				
+		var index = -1;		
+		var comArr = eval( $scope.companies );
+		for( var i = 0; i < comArr.length; i++ ) {
+			if( comArr[i].name === name ) {
+				index = i;
+				break;
+			}
+		}
+		if ( index === -1 ) {
+			alert( "Something gone wrong" );
+		}
+		$scope.companies.splice( index, 1 );		
+	};
+} );
+
+
+
 
 
 
